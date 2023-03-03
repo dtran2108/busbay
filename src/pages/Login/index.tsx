@@ -14,7 +14,9 @@ const Login: React.FC = () => {
       <IonContent fullscreen>
         <div className='scroll' style={{ height: "100%" }}>
           <div className='login-title-wrapper'>
-            <IonImg src={bus} alt="bus"></IonImg>
+            <div style={{ width: '50%' }}>
+              <IonImg src='https://cdn-icons-png.flaticon.com/512/1205/1205947.png' />
+            </div>
             <h3 style={{ textAlign: "center" }}>WELCOME BACK!</h3>
             <p style={{ textAlign: "center", opacity: "0.7" }}>Please login to your account</p>
           </div>
