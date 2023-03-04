@@ -1,14 +1,48 @@
 import { useLocalStorage } from '../../components/StorageWrapper';
-import { IonButton, IonContent, IonCheckbox, IonInput, IonImg, IonLabel, IonList, IonLoading, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonCheckbox, IonInput, IonImg, IonLabel, IonList, IonLoading, IonPage, IonTitle, IonToolbar, IonItem } from '@ionic/react';
 import './index.css'
 import { useState } from 'react';
 import bus from "../../img/bus.png";
 import { useHistory } from 'react-router';
+import { useForm, Controller } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
+import axios from 'axios';
 
 const Login: React.FC = () => {
-  const { db } = useLocalStorage()
+  const { db } = useLocalStorage();
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    register,
+    getValues,
+    formState: { errors }
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    }
+  });
+
   const history = useHistory();
   const [showLoading, setShowLoading] = useState(false);
+
+  const onSubmit = (data: any) => {
+    setShowLoading(true);
+    axios({
+      method: 'post',
+      url: 'http://192.168.1.52:3000/v1/auth/login',
+      data: data
+    })
+      .then(response => {
+        console.log(response)
+        history.push('/scan-qr')
+        setShowLoading(false);
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  };
 
   return (
     <IonPage>
@@ -23,24 +57,44 @@ const Login: React.FC = () => {
             <p style={{ textAlign: "center", opacity: "0.7" }}>Please login to your account</p>
           </div>
           <br />
-          <div className='field'>
-            <IonLabel> Username </IonLabel>
-            <IonInput className='login-custom-input' clearInput={true} />
-          </div>
-          <br />
-          <div className='field'>
-            <IonLabel>Password </IonLabel>
-            <IonInput type='password' className='login-custom-input' clearInput={true} />
-          </div>
-          <br />
-          <div className='login-footer'>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <IonCheckbox style={{ color: "#fff", marginRight: '8px' }}></IonCheckbox>
-              <IonLabel>Remember me</IonLabel>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <IonItem className='field'>
+              <IonInput placeholder='Email' className='login-custom-input' clearInput={true}
+                {...register('email', {
+                  required: 'This is a required field',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: 'invalid email address'
+                  }
+                })}
+              />
+            </IonItem>
+            <ErrorMessage
+              errors={errors}
+              name="email"
+              as={<div style={{ color: 'red' }} />}
+            />
+            <br />
+            <IonItem className='field'>
+              <IonInput type="password" placeholder='Password' className='login-custom-input' clearInput={true}
+                {...register('password', { required: 'Password is required' })}
+              />
+            </IonItem>
+            <ErrorMessage
+              errors={errors}
+              name="password"
+              as={<div style={{ color: 'red' }} />}
+            />
+            <br />
+            <div className='login-footer'>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <IonCheckbox style={{ color: "#fff", marginRight: '8px' }}></IonCheckbox>
+                <IonLabel>Remember me</IonLabel>
+              </div>
+              <p>Forgot password?</p>
             </div>
-            <p>Forgot password?</p>
-          </div>
-          <IonButton onClick={() => { history.push('/scan-qr') }} expand="block" style={{ width: "100%" }} size='default'>Login</IonButton>
+            <IonButton type='submit' expand="block" style={{ width: "100%" }} size='default'>Login</IonButton>
+          </form>
         </div>
 
         <IonLoading
