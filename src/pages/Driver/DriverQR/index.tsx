@@ -3,6 +3,7 @@ import { useLocalStorage } from "../../../components/StorageWrapper";
 import { IonContent, IonButton, IonInput, IonLabel, IonPage, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar } from '@ionic/react';
 import { ellipse, square, triangle } from 'ionicons/icons';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import './index.css'
 
 const DriverQR: React.FC = () => {
   const { db } = useLocalStorage();
@@ -18,10 +19,11 @@ const DriverQR: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <strong>Scan Content</strong>
-        <IonButton color="danger" expand="block" onClick={dataToScan}>
-          Scan Data
-        </IonButton>
+        <div className='wrapper'>
+          <IonButton color="danger" expand="block" onClick={dataToScan}>
+            Scan Ticket
+          </IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );

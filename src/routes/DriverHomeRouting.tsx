@@ -1,32 +1,32 @@
-import { IonContent, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar } from '@ionic/react';
-import { busOutline, ellipse, square, triangle } from 'ionicons/icons';
+import { IonContent, IonIcon, IonLabel, IonPage, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
 
-import { Redirect, Route } from 'react-router-dom';
-import Temp from "../pages/Temp";
-import { useLocalStorage } from '@/components/StorageWrapper';
-import Home from '../pages/UserHome';
+import { Route } from 'react-router-dom';
 import DriverQR from '../pages/Driver/DriverQR';
-import { qrCodeOutline } from 'ionicons/icons';
+import { qrCodeOutline, personOutline } from 'ionicons/icons';
+import Profile from '../pages/Driver/Profile';
 
 const DriverHomeRouting: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen></IonContent>
       <IonRouterOutlet>
-        <Route exact path="/driver-scan-qr">
+        <Route exact path="/scan-qr">
           <DriverQR/>
+        </Route>
+        <Route exact path="/profile">
+          <Profile/>
         </Route>
 
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
-        <IonTabButton tab="tab1" href="/driver-scan-qr">
+        <IonTabButton tab="tab1" href="/scan-qr">
           <IonIcon aria-hidden="true" icon={qrCodeOutline} />
           <IonLabel>Scan QR</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="tab2" href="/home/route">
-          <IonIcon aria-hidden="true" icon={busOutline} />
-          <IonLabel>Stations</IonLabel>
+        <IonTabButton tab="tab2" href="/profile">
+          <IonIcon aria-hidden="true" icon={personOutline} />
+          <IonLabel>Profile</IonLabel>
         </IonTabButton>
       </IonTabBar>
     </IonPage>

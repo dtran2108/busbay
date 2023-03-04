@@ -49,11 +49,11 @@ const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route exact path="/driver-scan-qr">
+          <Route exact path="/scan-qr">
             <DriverHomeRouting />
           </Route>
-          <Route path="/user-home">
-            <UserHomeRouting />
+          <Route exact path="/profile">
+            <DriverHomeRouting />
           </Route>
           <Route path="/sign-up">
             <SignUp />
