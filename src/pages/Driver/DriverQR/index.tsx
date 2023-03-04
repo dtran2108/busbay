@@ -7,10 +7,11 @@ import './index.css'
 
 const DriverQR: React.FC = () => {
   const { db } = useLocalStorage();
+  // const api = axios
   const [stringEncoded, setStringEncoded] = useState('')
   const dataToScan = async () => {
     const data = await BarcodeScanner.scan();
-    alert(JSON.stringify(data));
+    alert('Successfully scanned!');
     setStringEncoded(data.text)
   };
 
@@ -20,7 +21,7 @@ const DriverQR: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div className='wrapper'>
-          <IonButton color="danger" expand="block" onClick={dataToScan}>
+          <IonButton size="large" color="danger" expand="block" onClick={dataToScan}>
             Scan Ticket
           </IonButton>
         </div>

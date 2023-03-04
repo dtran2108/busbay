@@ -19,18 +19,13 @@ import { pencilOutline } from 'ionicons/icons';
 function EditProfile() {
     const modal = useRef<HTMLIonModalElement>(null);
     const input = useRef<HTMLIonInputElement>(null);
-
-    const [message, setMessage] = useState(
-        'This modal example uses triggers to automatically open a modal when the button is clicked.'
-    );
-
     function confirm() {
         modal.current?.dismiss(input.current?.value, 'confirm');
     }
 
     function onWillDismiss(ev: CustomEvent<OverlayEventDetail>) {
         if (ev.detail.role === 'confirm') {
-            setMessage(`Hello, ${ev.detail.data}!`);
+            
         }
     }
 

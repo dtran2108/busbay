@@ -3,9 +3,11 @@ import { IonButton, IonContent, IonCheckbox, IonInput, IonImg, IonLabel, IonList
 import './index.css'
 import { useState } from 'react';
 import bus from "../../img/bus.png";
+import { useHistory } from 'react-router';
 
 const Login: React.FC = () => {
   const { db } = useLocalStorage()
+  const history = useHistory();
   const [showLoading, setShowLoading] = useState(false);
 
   return (
@@ -25,12 +27,12 @@ const Login: React.FC = () => {
             <IonLabel> Username </IonLabel>
             <IonInput className='login-custom-input' clearInput={true} />
           </div>
-          <br/>
+          <br />
           <div className='field'>
             <IonLabel>Password </IonLabel>
             <IonInput type='password' className='login-custom-input' clearInput={true} />
           </div>
-          <br/>
+          <br />
           <div className='login-footer'>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <IonCheckbox style={{ color: "#fff", marginRight: '8px' }}></IonCheckbox>
@@ -38,16 +40,16 @@ const Login: React.FC = () => {
             </div>
             <p>Forgot password?</p>
           </div>
-          <IonButton onClick={() => {}} expand="block" style={{width:"100%"}} size='default'>Login</IonButton>
+          <IonButton onClick={() => { history.push('/scan-qr') }} expand="block" style={{ width: "100%" }} size='default'>Login</IonButton>
         </div>
 
         <IonLoading
-        cssClass="my-custom-class"
-        isOpen={showLoading}
-        onDidDismiss={() => setShowLoading(false)}
-        message={'Please wait...'}
-  
-      />
+          cssClass="my-custom-class"
+          isOpen={showLoading}
+          onDidDismiss={() => setShowLoading(false)}
+          message={'Please wait...'}
+
+        />
 
       </IonContent>
     </IonPage>
