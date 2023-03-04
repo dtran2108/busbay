@@ -1,5 +1,5 @@
 import { useLocalStorage } from '../../components/StorageWrapper';
-import { IonButton, IonContent, IonCheckbox, IonInput, IonImg, IonLabel, IonList, IonLoading, IonPage, IonTitle, IonToolbar, IonItem } from '@ionic/react';
+import { IonButton, IonContent, IonCheckbox, IonInput, IonImg, IonLabel, IonList, IonLoading, IonPage, IonTitle, IonToolbar, IonItem, useIonRouter } from '@ionic/react';
 import './index.css'
 import { useState } from 'react';
 import bus from "../../img/bus.png";
@@ -7,6 +7,7 @@ import { useHistory } from 'react-router';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import axios from 'axios';
+import { toURLEncoded } from '../../utils';
 
 const Login: React.FC = () => {
   const { db } = useLocalStorage();
@@ -24,23 +25,23 @@ const Login: React.FC = () => {
     }
   });
 
-  const history = useHistory();
+  const router = useIonRouter();
   const [showLoading, setShowLoading] = useState(false);
 
   const onSubmit = (data: any) => {
     setShowLoading(true);
-    axios({
-      method: 'post',
-      url: 'http://192.168.1.52:3000/v1/auth/login',
-      data: data
+    fetch('http://192.168.1.52:3000/v1/auth/login', {
+      method: 'POST',
+      body: toURLEncoded(data)
     })
       .then(response => {
         console.log(response)
-        history.push('/scan-qr')
+        router.push('/scan-qr')
         setShowLoading(false);
       })
       .catch(err => {
         console.log(err)
+        setShowLoading(false);
       });
   };
 
@@ -57,7 +58,7 @@ const Login: React.FC = () => {
             <p style={{ textAlign: "center", opacity: "0.7" }}>Please login to your account</p>
           </div>
           <br />
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
             <IonItem className='field'>
               <IonInput placeholder='Email' className='login-custom-input' clearInput={true}
                 {...register('email', {

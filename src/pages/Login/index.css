@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     padding: 10px;
     padding-top: 20px;
     width: 100%;
@@ -14,7 +14,7 @@ h3 {
     margin-top: 24px;
 }
 
-p { 
+p {
     margin-top: 8px;
 }
 
@@ -56,4 +56,9 @@ p {
     width: 100%;
     margin-bottom: 32px;
     align-items: center;
+}
+
+ion-item.sc-ion-input-ios-h:not(.item-label),
+ion-item:not(.item-label) .sc-ion-input-ios-h {
+    --padding-start: 16px;
 }

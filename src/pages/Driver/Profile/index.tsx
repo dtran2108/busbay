@@ -13,14 +13,14 @@ const Profile: React.FC = () => {
           <IonAvatar>
             <img alt="Silhouette of a person's head" src="https://api.dicebear.com/5.x/personas/svg" />
           </IonAvatar>
-          <h2 style={{ marginBottom: 0 }}><strong>John Doe</strong></h2>
+          <h2 style={{ marginBottom: 0 }}><strong>Son Nguyen</strong></h2>
           <p style={{ opacity: 0.7 }}>Driver</p>
           <hr></hr>
           <div style={{ textAlign: 'center', borderTop: '1px solid rgba(0,0,0,0.1)', width: '80%', paddingTop: '42px' }}>
             <EditProfile />
             <p><strong>Bus 11</strong></p>
             <p>+84 1234 567 89</p>
-            <p>john.doe@busbay.com</p>
+            <p>taixe.son@gmail.com</p>
           </div>
         </div>
       </IonContent>
